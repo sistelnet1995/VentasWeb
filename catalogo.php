@@ -4,8 +4,7 @@
     require 'php/get.php';
     $get = new get();
 
-    $resultC = $get->getSP("get_categorias()");
-    
+    $resultC = $get->getSP("get_categorias()"); 
 ?>
 
 <!DOCTYPE html>
@@ -74,9 +73,7 @@
                 <div class="progress invisible">
                     <div class="indeterminate"></div>
                 </div>
-                <div class="row" id="productos">
-                    
-                </div>
+                <div class="row" id="productos"></div>
             </div>
         </div>
     </main>

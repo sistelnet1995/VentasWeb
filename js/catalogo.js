@@ -4,7 +4,7 @@ $(document).ready(function(){
         url: "php/auto_complete.php",
         data: {},
         success: function (response) {
-            console.log(response);
+            // console.log(response);
             $('input.autocomplete').autocomplete({
                 data: response,
             });
@@ -17,6 +17,7 @@ $(document).ready(function(){
     var SubCategoria = $('#SubCategoria').val();
     var precio_min = $('#precio_min').val();
     var precio_max = $('#precio_max').val();
+
     $('.progress').removeClass('invisible');
     addAEvent();
     $.ajax({
@@ -29,23 +30,6 @@ $(document).ready(function(){
             $('.progress').addClass('invisible');
         }
     });
-});
-
-$('#Categoria').change(function (e) { 
-	e.preventDefault();
-	IdCategoria = $(this).val();
-	if(IdCategoria !== '') {
-		$('#SubCategoria').removeAttr('disabled');
-	}
-	$('#SubCategoria').find('option').remove().end().append('<option value="" disabled selecte>Seleccione</option>');
-	$.ajax({
-		type: "POST",
-		url: "php/sub_categorias.php",
-		data: {IdCategoria: IdCategoria},
-		success: function (response) {
-			$('#SubCategoria').html(response);
-		}
-	});
 });
 
 $('#Filtrar').click(function (e) {
@@ -78,14 +62,32 @@ function addAEvent() {
 
     $('.Detalle').on('click', function () {
         IdPrecioVenta = $(this).data('id');
-        console.log(IdPrecioVenta);
-        // $.ajax({
-        //     type: "POST",
-        //     url: "detalle_producto.php",
-        //     data: { IdPrecioVenta: IdPrecioVenta },
-        //     success: function (response) {
-        //         $(location).attr('href', 'detalle_producto.php');
-        //     }
-        // });
+        // console.log(IdPrecioVenta);
+        $.ajax({
+            type: "POST",
+            url: "detalle_producto.php",
+            data: { IdPrecioVenta: IdPrecioVenta },
+            success: function (response) {
+                $(location).attr('href', 'detalle_producto.php');
+            }
+        });
     });
 }
+
+$('#Categoria').change(function (e) { 
+	e.preventDefault();
+	IdCategoria = $(this).val();
+	if(IdCategoria !== '') {
+		$('#SubCategoria').removeAttr('disabled');
+	}
+	$('#SubCategoria').find('option').remove().end().append('<option value="" disabled selecte>Seleccione</option>');
+	$.ajax({
+		type: "POST",
+		url: "php/sub_categorias.php",
+		data: {IdCategoria: IdCategoria},
+		success: function (response) {
+			$('#SubCategoria').html(response);
+		}
+	});
+});
+
