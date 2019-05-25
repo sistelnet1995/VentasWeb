@@ -57,5 +57,5 @@ $('.text').on('input', function () {
 
 $('#user').click(function (e) { 
     e.preventDefault();
-    $('.invisible').hide();
+    $('.ocultar').hide();
 });

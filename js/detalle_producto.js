@@ -34,7 +34,25 @@ $('.AgregarFavorito').click(function (e) {
         success: function (response) {
             $('.progress').addClass('hide');
             if (response == 1)
-                alertify.success('Bien. Se agrego a mis favoritos');
+                alertify.alert('Favorito', 'Se agrego a mis favoritos', function(){ location.reload(); });
+        }
+    });
+});
+
+$('.QuitarFavorito').click(function (e) {
+    e.preventDefault();
+    $('.progress').removeClass('hide');
+    var IdPrecioVenta = $(this).siblings('.AgregarCarrito').attr('id');
+    $.ajax({
+        type: "POST",
+        url: "php/favorito/up_favorito.php",
+        data: {
+            IdPrecioVenta: IdPrecioVenta
+        },
+        success: function (response) {
+            $('.progress').addClass('hide');
+            if (response == 1)
+                alertify.alert('Favorito', 'Se quito de mis favoritos', function(){ location.reload(); });
         }
     });
 });

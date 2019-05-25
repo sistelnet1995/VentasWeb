@@ -24,8 +24,12 @@
 
     $con = new Connection();
     $cmd = $con->getConnection();
-    $cmd->query("CALL set_Usuario_Ubigeo_Coordenada_Cliente_Bono('$Email', '$UserName', '$UserPass', '$Departamento', '$Provincia', '$Distrito', '$Latitud', '$Longitud', '$IdCliente', '$Nombre', '$ApellidoP', '$ApellidoM', '$Genero', '$EstadoCivil', '$FechaNacimiento', '$RazonSocial', '$Direccion')");
+    $result = $cmd->query("CALL set_Usuario_Ubigeo_Coordenada_Cliente_Bono('$Email', '$UserName', '$UserPass', '$Departamento', '$Provincia', '$Distrito', '$Latitud', '$Longitud', '$IdCliente', '$Nombre', '$ApellidoP', '$ApellidoM', '$Genero', '$EstadoCivil', '$FechaNacimiento', '$RazonSocial', '$Direccion')");
     $cmd->close();
-    echo 'Cuenta creada con exito';
+    if($result)
+        echo 'Cuenta creada con exito';
+    else
+        echo 'No se creo su cuenta, vuelva a intentarlo';
+    
 
 ?>

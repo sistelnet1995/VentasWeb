@@ -1,17 +1,4 @@
 $(document).ready(function(){
-    $.ajax({
-        type: "POST",
-        url: "php/auto_complete.php",
-        data: {},
-        success: function (response) {
-            // console.log(response);
-            $('input.autocomplete').autocomplete({
-                data: response,
-            });
-        }
-    });
-    
-
     var producto = $('#producto').val();
     var Categoria = $('#Categoria').val();
     var SubCategoria = $('#SubCategoria').val();

@@ -25,11 +25,20 @@
         $BonosGan = 0;
 
         for($i = 0; $i <count($ArrayCarrito); $i++) {
-            $IdPrecioVenta = $ArrayCarrito[$i]['Id'];
-            $Cantidad = $ArrayCarrito[$i]['Cantidad'];
-            $BonosGan = $BonosGan + $ArrayCarrito[$i]['Bono'] * $ArrayCarrito[$i]['Cantidad'];
+            do {
+                $res = 0;
 
-            $cmd->query("CALL set_DetallesVentaWeb ('$IdPrecioVenta', '$Cantidad', '$NombreTienda')");
+                $IdPrecioVenta = $ArrayCarrito[$i]['Id'];
+                $Cantidad = $ArrayCarrito[$i]['Cantidad'];
+                $BonosGan = $BonosGan + $ArrayCarrito[$i]['Bono'] * $ArrayCarrito[$i]['Cantidad'];
+    
+                $resp = $cmd->query("CALL set_DetallesVentaWeb ('$IdPrecioVenta', '$Cantidad', '$NombreTienda')");
+
+                if($resp) {
+                    $res = 1;
+                }
+                
+            } while($res == 0);
         }
 
         $cmd->query("CALL set_EntregasWeb ('$IdCliente', '$TipoEntrega', '$IdTipoPago', '$BonosGan')");
